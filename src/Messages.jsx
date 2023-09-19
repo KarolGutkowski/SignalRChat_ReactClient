@@ -14,7 +14,7 @@ const ReceiveingMessage = ({ message }) => {
   return (
     <div className="received-msg">
       <div className="received-msg-inbox">
-        <p className="single-msg">${message}</p>
+        <p className="single-msg">{message}</p>
         <span className="time">18:31 PM | July 24</span>
       </div>
     </div>
@@ -23,13 +23,15 @@ const ReceiveingMessage = ({ message }) => {
 
 const OutGoingMessage = ({ message }) => {
   return (
-    <div class="outgoing-chats">
-      <div class="outgoing-msg">
-        <div class="outgoing-chats-msg">
-          <p>${message}</p>
-          <span class="time">18:34 PM | July 24</span>
+    <div className="outgoing-chats">
+      <div className="outgoing-msg">
+        <div className="outgoing-chats-msg">
+          <p>{message}</p>
+          <span className="time">18:34 PM | July 24</span>
         </div>
       </div>
     </div>
   );
 };
+
+export default Messages;

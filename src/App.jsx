@@ -1,41 +1,38 @@
-import React from "react";
+import { React, useState } from "react";
 import { createRoot } from "react-dom/client";
+import Messages from "./Messages";
 
 const App = () => {
+  const [messages, setMesasges] = useState([]);
   return (
-    <div class="container">
-      <div class="msg-header">
-        <div class="container1">
-          <div class="active">
+    <div className="container">
+      <div className="msg-header">
+        <div className="container1">
+          <div className="active">
             <p>User name</p>
           </div>
         </div>
       </div>
 
-      <div class="chat-page">
-        <div class="msg-inbox">
-          <div class="chats">
-            <div class="msg-page" id="msg-page">
-              <Messages />
+      <div className="chat-page">
+        <div className="msg-inbox">
+          <div className="chats">
+            <div className="msg-page" id="msg-page">
+              <Messages messages={messages} />
             </div>
           </div>
 
-          <div class="msg-bottom">
-            <div class="input-group">
+          <div className="msg-bottom">
+            <div className="input-group">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Write message..."
                 id="message-input"
-                onInput="notifyUserWritingMessage()"
               />
-              <div class="input-group-append ">
-                <span class="input-group-text send-icon ">
-                  <button
-                    class="send-message-button"
-                    onClick="send()"
-                    id="send-button"
-                  >
+              <div className="input-group-append ">
+                <span className="input-group-text send-icon ">
+                  <button className="send-message-button" id="send-button">
                     Send
                   </button>
                 </span>
@@ -50,4 +47,4 @@ const App = () => {
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(React.createElement(App));
+root.render(<App />);
