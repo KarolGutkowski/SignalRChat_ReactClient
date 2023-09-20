@@ -3,7 +3,18 @@ import { createRoot } from "react-dom/client";
 import Messages from "./Messages";
 
 const App = () => {
-  const [messages, setMesasges] = useState([]);
+  const [messages, setMesasges] = useState([
+    {
+      id: 1,
+      type: "received",
+      content: "test received message 1",
+    },
+    {
+      id: 2,
+      type: "outgoing",
+      content: "test outgoing message 2",
+    },
+  ]);
   return (
     <div className="container">
       <div className="msg-header">
@@ -32,7 +43,11 @@ const App = () => {
               />
               <div className="input-group-append ">
                 <span className="input-group-text send-icon ">
-                  <button className="send-message-button" id="send-button">
+                  <button
+                    className="send-message-button"
+                    id="send-button"
+                    onClick={() => addOutgoingMessage(messages, setMesasges)}
+                  >
                     Send
                   </button>
                 </span>
@@ -44,6 +59,17 @@ const App = () => {
     </div>
   );
 };
+
+function addOutgoingMessage(messages, setMesasges) {
+  const messageContent = document.getElementById("message-input").value;
+
+  var messgeToAppend = {
+    id: Math.max(messages.map((msg) => msg.id)) + 1,
+    type: "outgoing",
+    content: messageContent,
+  };
+  setMesasges([...messages, messgeToAppend]);
+}
 
 const container = document.getElementById("root");
 const root = createRoot(container);
