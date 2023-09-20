@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Messages from "./Messages";
 
@@ -15,6 +15,12 @@ const App = () => {
       content: "test outgoing message 2",
     },
   ]);
+
+  useEffect(() => {
+    const messagePage = document.getElementById("msg-page");
+    scrollToBottom(messagePage);
+  }, [messages]);
+
   return (
     <div className="container">
       <div className="msg-header">
@@ -69,6 +75,10 @@ function addOutgoingMessage(messages, setMesasges) {
     content: messageContent,
   };
   setMesasges([...messages, messgeToAppend]);
+}
+
+function scrollToBottom(element) {
+  element.scrollTop = element.scrollHeight;
 }
 
 const container = document.getElementById("root");
