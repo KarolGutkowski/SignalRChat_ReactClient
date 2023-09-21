@@ -1,8 +1,13 @@
 import { React, useState, useEffect } from "react";
 import Messages from "./Messages";
+import {
+  addOutgoingMessage,
+  initializeSignalRConnection,
+} from "../SignalR/connection";
 
 const ChatInterface = (props) => {
-  const [messages, setMesasges] = useState([
+  const [nextId, setNextId] = useState(0);
+  const [messages, setMessages] = useState([
     {
       id: 1,
       type: "received",
@@ -19,6 +24,13 @@ const ChatInterface = (props) => {
     const messagePage = document.getElementById("msg-page");
     scrollToBottom(messagePage);
   }, [messages]);
+
+  useEffect(() => {
+    const connection = initializeSignalRConnection({ setMessages, setNextId });
+    return () => {
+      connection.stop();
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -51,7 +63,12 @@ const ChatInterface = (props) => {
                   <button
                     className="send-message-button"
                     id="send-button"
-                    onClick={() => addOutgoingMessage(messages, setMesasges)}
+                    onClick={() =>
+                      addOutgoingMessage({
+                        messages,
+                        setMessages,
+                      })
+                    }
                   >
                     Send
                   </button>
@@ -64,17 +81,6 @@ const ChatInterface = (props) => {
     </div>
   );
 };
-
-function addOutgoingMessage(messages, setMesasges) {
-  const messageContent = document.getElementById("message-input").value;
-
-  var messgeToAppend = {
-    id: Math.max(...messages.map((msg) => msg.id)) + 1,
-    type: "outgoing",
-    content: messageContent,
-  };
-  setMesasges([...messages, messgeToAppend]);
-}
 
 function scrollToBottom(element) {
   element.scrollTop = element.scrollHeight;
