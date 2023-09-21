@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import Messages from "./Messages";
-import { send } from "../SignalR/connection";
 
 const ChatInterface = (props) => {
   const [messages, setMesasges] = useState([
@@ -75,8 +74,6 @@ function addOutgoingMessage(messages, setMesasges) {
     content: messageContent,
   };
   setMesasges([...messages, messgeToAppend]);
-  send({ message: messageContent });
-  document.getElementById("message-input").value = "";
 }
 
 function scrollToBottom(element) {
